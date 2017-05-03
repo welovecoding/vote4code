@@ -1,0 +1,52 @@
+# extends 'base.html'
+# import 'macro/forms.html' as forms
+# import 'macro/utils.html' as utils
+
+
+# block content
+  <div class="page-header">
+    <h1>
+      {{utils.back_link('Back', 'language_list')}}
+      {{title}}
+    </h1>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <table class="table table-bordered table-striped">
+        <tbody>
+          <tr>
+            <th class="text-nowrap col-xs-1">Name</th>
+            <td class="col-xs-11">{{language_db.name}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  # set post_dbs, post_cursor = language_db.get_post_dbs(limit=-1)
+  <div class="{{'hide' if not post_dbs|count}}">
+    <h3>Post List</h3>
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered table-hover">
+        <thead>
+          <tr class="text-nowrap">
+          <th class="col-xs-1">Title</th>
+          <th class="col-xs-1">Language</th>
+          <th class="col-xs-1">Variant A</th>
+          <th class="col-xs-1">Variant B</th>
+          </tr>
+        </thead>
+        <tbody>
+          # for post_db in post_dbs
+            <tr class="row-link" id="{{post_db.key.urlsafe()}}" data-href="{{url_for('post_view', post_id=post_db.key.id())}}">
+              <td>{{post_db.title}}</td>
+              <td>{{post_db.language_key.get().name if post_db.language_key else ''}}</td>
+              <td>{{post_db.variant_a}}</td>
+              <td>{{post_db.variant_b}}</td>
+            </tr>
+          # endfor
+        </tbody>
+      </table>
+    </div>
+  </div>
+# endblock

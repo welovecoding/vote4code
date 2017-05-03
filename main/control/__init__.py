@@ -9,3 +9,6 @@ from .letsencrypt import *
 from .profile import *
 from .test import *
 from .welcome import *
+from .language import *
+from .post import *
+from .vote import *
