@@ -12,6 +12,13 @@ import util
 class Language(model.Base):
   name = ndb.StringProperty(required=True)
 
+  @classmethod
+  def get_dbs(cls, order=None, **kwargs):
+    return super(Language, cls).get_dbs(
+      order=order or util.param('order') or 'name',
+      **kwargs
+    )
+
   def get_post_dbs(self, **kwargs):
     return model.Post.get_dbs(language_key=self.key, **kwargs)
 

@@ -16,6 +16,13 @@ class Post(model.Base):
   variant_b = ndb.TextProperty(required=True)
   user_key = ndb.KeyProperty(kind=model.User, required=True)
 
+  @classmethod
+  def get_dbs(cls, order=None, **kwargs):
+    return super(Post, cls).get_dbs(
+      order=order or util.param('order') or '-created',
+      **kwargs
+    )
+
   def get_vote_dbs(self, **kwargs):
     return model.Vote.get_dbs(post_key=self.key, **kwargs)
 

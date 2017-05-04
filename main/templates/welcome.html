@@ -23,6 +23,7 @@
           <th class="col-xs-1">{{utils.order_by_link('language_key', 'Language')}}</th>
           <th class="col-xs-4">Variant A</th>
           <th class="col-xs-4">Variant B</th>
+          <th>{{utils.order_by_link('created', 'Created')}}</th>
         </tr>
       </thead>
       <tbody>
@@ -34,9 +35,14 @@
               {{user_db.name}}
             </td>
             <td class="ellipsis">{{post_db.title}}</td>
-            <td>{{post_db.language_key.get().name if post_db.language_key else ''}}</td>
+            <td>{{post_db.language_key.get().name}}</td>
             <td class="ellipsis">{{post_db.variant_a}}</td>
             <td class="ellipsis">{{post_db.variant_b}}</td>
+            <td class="text-nowrap">
+              <time class="small" datetime="{{post_db.created}}">
+                {{post_db.created.strftime('%Y-%m-%d')}}
+              </time>
+            </td>
           </tr>
         # endfor
       </tbody>

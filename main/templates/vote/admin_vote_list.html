@@ -26,7 +26,7 @@
       </thead>
       <tbody>
         # for vote_db in vote_dbs
-          <tr class="row-link" id="{{vote_db.key.urlsafe()}}" data-href="{{url_for('admin_vote_update', vote_id=vote_db.key)}}">
+          <tr class="row-link" id="{{vote_db.key.urlsafe()}}" data-href="{{url_for('admin_vote_update', vote_id=vote_db.key.id())}}">
             <td>{{vote_db.user_key.get().name if vote_db.user_key else ''}}</td>
             <td>{{vote_db.post_key.get().title if vote_db.post_key else ''}}</td>
             <td>{{vote_db.variant}}</td>
