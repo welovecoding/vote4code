@@ -20,7 +20,9 @@
 
         # set is_icon = config.CONFIG_DB.has_email_authentication
         <div class="text-center">
-          {{utils.signin_button('GAE' if config.CONFIG_DB.has_google else 'Google', 'btn-google', 'fa-google', gae_signin_url, is_icon)}}
+          # if not config.CONFIG_DB.has_github
+            {{utils.signin_button('GAE' if config.CONFIG_DB.has_google else 'Google', 'btn-google', 'fa-google', gae_signin_url, is_icon)}}
+          # endif
           {{utils.signin_button('Facebook', 'btn-facebook', 'fa-facebook', facebook_signin_url, is_icon) if config.CONFIG_DB.has_facebook}}
           {{utils.signin_button('Twitter', 'btn-twitter', 'fa-twitter', twitter_signin_url, is_icon) if config.CONFIG_DB.has_twitter}}
           {{utils.signin_button('Azure AD', 'btn-azure_ad', 'fa-windows', azure_ad_signin_url, is_icon) if config.CONFIG_DB.has_azure_ad}}
