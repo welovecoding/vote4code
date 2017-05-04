@@ -29,7 +29,7 @@ gulp.task 'deploy', 'Deploy project to Google App Engine.', ['build'], ->
 
   gulp.src('run.py').pipe $.start [{
     match: /run.py$/
-    cmd: "gcloud app deploy main/*.yaml#{options_str}"
+    cmd: "gcloud app deploy main/app.yaml main/index.yaml#{options_str}"
   }]
 
 
