@@ -43,7 +43,7 @@ class LanguageUpdateAdminForm(flask_wtf.FlaskForm):
   )
   slug = wtforms.StringField(
     model.Language.slug._verbose_name,
-    [wtforms.validators.optional(), wtforms.validators.length(max=500)],
+    [wtforms.validators.required(), wtforms.validators.length(max=500)],
     filters=[util.strip_filter],
   )
 

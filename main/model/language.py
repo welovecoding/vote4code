@@ -11,7 +11,7 @@ import util
 
 class Language(model.Base):
   name = ndb.StringProperty(required=True)
-  slug = ndb.StringProperty(default='')
+  slug = ndb.StringProperty(required=True)
 
   @classmethod
   def get_dbs(cls, order=None, **kwargs):
