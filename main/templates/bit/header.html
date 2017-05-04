@@ -12,13 +12,17 @@
     <nav class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
         <li class="{{'active' if html_class == 'post-update'}}">
-          <a href="{{url_for('post_update')}}"><fa class="fa fa-code fa-fw"></fa> Add Post</a>
+          <a href="{{url_for('post_update')}}">
+            <fa class="fa fa-code fa-fw"></fa> Add Post</a>
         </li>
-        # include 'bit/contact_menu.html'
+        <li>
+          <a href="https://github.com/welovecoding/vote4code/issues" target="_blank"><span class="fa fa-fw fa-comment"></span> Feedback</a>
+        </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="{{'active' if html_class == 'post-update'}}">
-          <a href="https://github.com/welovecoding/vote4code"><fa class="fa fa-github fa-fw"></fa> GitHub</a>
+          <a href="https://github.com/welovecoding/vote4code" target="_blank">
+            <fa class="fa fa-github fa-fw"></fa> GitHub</a>
         </li>
         # include 'bit/user_menu.html'
       </ul>
