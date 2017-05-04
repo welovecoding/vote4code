@@ -6,7 +6,6 @@ import flask_wtf
 import wtforms
 
 import auth
-import config
 import model
 import util
 
@@ -99,11 +98,34 @@ def post_view(post_id):
   if not post_db:
     flask.abort(404)
 
+  vote_dbs, vote_cursor = model.Vote.get_dbs(
+    limit=-1,
+    ancestor=post_db.key,
+    order='variant',
+  )
+  votes_a = 0
+  for vote_db in vote_dbs:
+    if vote_db.variant == 'a':
+      votes_a += 1
+      continue
+    break
+  votes_b = len(vote_dbs) - votes_a
+
+  # my own votes
+  my_vote_dbs, _ = model.Vote.get_dbs(
+    limit=1,
+    ancestor=post_db.key,
+    user_key=auth.current_user_key(),
+  )
+
   return flask.render_template(
     'post/post_view.html',
     html_class='post-view',
     title=post_db.title,
     post_db=post_db,
+    vote_db=my_vote_dbs[0] if my_vote_dbs else None,
+    votes_a=votes_a,
+    votes_b=votes_b,
     api_url=flask.url_for('api.post', post_key=post_db.key.urlsafe() if post_db.key else ''),
   )
 

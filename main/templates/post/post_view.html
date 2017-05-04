@@ -9,42 +9,57 @@
       <a class="btn btn-default" href="{{url_for('post_update')}}" title="Add Post">
         <span class="fa fa-plus fa-fw"></span>
       </a>
-      <a class="btn btn-primary" href="{{url_for('post_update', post_id=post_db.key.id())}}">
-        <span class="fa fa-fw fa-pencil"></span> Edit
-      </a>
+      # if post_db.user_key.id == current_user.id
+        <a class="btn btn-primary" href="{{url_for('post_update', post_id=post_db.key.id())}}">
+          <span class="fa fa-fw fa-pencil"></span> Edit
+        </a>
+      # endif
     </div>
     <h1>
-      {{utils.back_link('Back', 'post_list')}}
+      # set user_db = post_db.user_key.get()
+      <img src="{{user_db.avatar_url_size(96)}}" width="32" height="32">
       {{title}}
       <small>{{post_db.language_key.get().name}}</small>
+      <small>
+        by
+        {{user_db.name}}
+      </small>
     </h1>
   </div>
 
-  <h3>Variant A</h3>
-  <pre>{{post_db.variant_a}}</pre>
-  <h3>Variant B</h3>
-  <pre>{{post_db.variant_b}}</pre>
-
-  # set vote_dbs, vote_cursor = post_db.get_vote_dbs(limit=-1)
-  <div class="{{'hide' if not vote_dbs|count}}">
-    <h3>Vote List</h3>
-    <div class="table-responsive">
-      <table class="table table-striped table-bordered table-hover">
-        <thead>
-          <tr class="text-nowrap">
-          <th class="col-xs-1">Post</th>
-          <th class="col-xs-1">Variant</th>
-          </tr>
-        </thead>
-        <tbody>
-          # for vote_db in vote_dbs
-            <tr class="row-link" id="{{vote_db.key.urlsafe()}}" data-href="{{url_for('vote_view', vote_id=vote_db.key.id())}}">
-              <td>{{vote_db.post_key.get().title if vote_db.post_key else ''}}</td>
-              <td>{{vote_db.variant}}</td>
-            </tr>
-          # endfor
-        </tbody>
-      </table>
+  <div class="row">
+    <div class="col-xs-1">
+      <form action="{{url_for('post_vote', post_id=post_db.key.id(), variant='a')}}">
+        <button class="btn {{'btn-success' if vote_db and vote_db.variant == 'a' else 'btn-default'}}">
+          <span class="fa fa-fw fa-arrow-up"></span>
+          {{votes_a}}
+        </button>
+      </form>
+    </div>
+    <div class="col-xs-11">
+      <h2>Variant A</h2>
     </div>
   </div>
+  <pre>{{post_db.variant_a}}</pre>
+  <hr>
+  <div class="row">
+    <div class="col-xs-1">
+      <form class="form-inline" action="{{url_for('post_vote', post_id=post_db.key.id(), variant='b')}}">
+        <button class="btn {{'btn-success' if vote_db and vote_db.variant == 'b' else 'btn-default'}}">
+          <span class="fa fa-fw fa-arrow-up"></span>
+          {{votes_b}}
+        </button>
+      </form>
+    </div>
+    <div class="col-xs-11">
+      <h2>Variant B</h2>
+    </div>
+  </div>
+  <pre>{{post_db.variant_b}}</pre>
+
+  <hr>
+
+  <p class="text-center">
+    <a class="btn btn-primary" href="{{url_for('welcome')}}">View All Posts</a>
+  </p>
 # endblock

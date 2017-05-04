@@ -1,13 +1,47 @@
 # extends 'base.html'
+# import 'macro/utils.html' as utils
 
 # block header
   <div class="jumbotron">
-    <div class="container">
+    <div class="container text-center">
       <h1>{{config.CONFIG_DB.brand_name}}</h1>
       <p>Hello, world!</p>
+      <a class="btn btn-primary" href="{{url_for('post_update')}}">
+        <fa class="fa fa-code fa-fw"></fa> Add Post
+      </a>
     </div>
   </div>
 # endblock
 
 # block content
+  <div class="table-responsive {{'hide' if not post_dbs|count}}">
+    <table class="table table-striped table-bordered table-hover">
+      <thead>
+        <tr class="text-nowrap">
+          <th class="col-xs-1">{{utils.order_by_link('user_key', 'User')}}</th>
+          <th class="col-xs-2">{{utils.order_by_link('title', 'Title')}}</th>
+          <th class="col-xs-1">{{utils.order_by_link('language_key', 'Language')}}</th>
+          <th class="col-xs-4">Variant A</th>
+          <th class="col-xs-4">Variant B</th>
+        </tr>
+      </thead>
+      <tbody>
+        # for post_db in post_dbs
+          <tr class="row-link" id="{{post_db.key.urlsafe()}}" data-href="{{url_for('post_view', post_id=post_db.key.id())}}">
+            <td class="text-nowrap">
+              # set user_db = post_db.user_key.get()
+              <img src="{{user_db.avatar_url_size(36)}}" width="18" height="18">
+              {{user_db.name}}
+            </td>
+            <td class="ellipsis">{{post_db.title}}</td>
+            <td>{{post_db.language_key.get().name if post_db.language_key else ''}}</td>
+            <td class="ellipsis">{{post_db.variant_a}}</td>
+            <td class="ellipsis">{{post_db.variant_b}}</td>
+          </tr>
+        # endfor
+      </tbody>
+    </table>
+  </div>
+
+  {{utils.next_link(next_url)}}
 # endblock
