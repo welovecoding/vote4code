@@ -11,6 +11,7 @@ import util
 
 class Language(model.Base):
   name = ndb.StringProperty(required=True)
+  slug = ndb.StringProperty(default='')
 
   @classmethod
   def get_dbs(cls, order=None, **kwargs):
@@ -30,6 +31,7 @@ class Language(model.Base):
 
   FIELDS = {
     'name': fields.String,
+    'slug': fields.String,
   }
 
   FIELDS.update(model.Base.FIELDS)
