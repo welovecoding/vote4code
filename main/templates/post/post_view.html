@@ -14,7 +14,7 @@
     </div>
     <h1>
       # set user_db = post_db.user_key.get()
-      <img src="{{user_db.avatar_url_size(96)}}" width="32" height="32">
+      <img class="img-thumbnail" src="{{user_db.avatar_url_size(96)}}" width="48" height="48">
       {{title}}
       <small>{{post_db.language_key.get().name}}</small>
       <small>
@@ -37,6 +37,10 @@
       <h3>Variant A</h3>
     </div>
   </div>
+  # for v_db in vote_dbs if v_db.variant == 'a'
+    # set user_db = v_db.user_key.get()
+    <img class="img-thumbnail" src="{{user_db.avatar_url_size(64)}}" width="32" height="32" title="{{user_db.name}}">
+  # endfor
   <pre>{{post_db.variant_a}}</pre>
   <hr>
   <div class="row">
@@ -52,6 +56,10 @@
       <h3>Variant B</h3>
     </div>
   </div>
+  # for v_db in vote_dbs if v_db.variant == 'b'
+    # set user_db = v_db.user_key.get()
+    <img class="img-thumbnail" src="{{user_db.avatar_url_size(64)}}" width="32" height="32" title="{{user_db.name}}">
+  # endfor
   <pre>{{post_db.variant_b}}</pre>
 
   <hr>

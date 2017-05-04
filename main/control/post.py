@@ -125,6 +125,7 @@ def post_view(post_id):
     'post/post_view.html',
     html_class='post-view',
     title=post_db.title,
+    vote_dbs=vote_dbs,
     vote_db=my_vote_dbs[0] if my_vote_dbs else None,
     votes_a=votes_a,
     votes_b=votes_b,
