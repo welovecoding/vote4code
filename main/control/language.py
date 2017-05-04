@@ -14,40 +14,6 @@ from main import app
 
 
 ###############################################################################
-# List
-###############################################################################
-@app.route('/language/')
-def language_list():
-  language_dbs, language_cursor = model.Language.get_dbs()
-  return flask.render_template(
-    'language/language_list.html',
-    html_class='language-list',
-    title='Language List',
-    language_dbs=language_dbs,
-    next_url=util.generate_next_url(language_cursor),
-    api_url=flask.url_for('api.language.list'),
-  )
-
-
-###############################################################################
-# View
-###############################################################################
-@app.route('/language/<int:language_id>/')
-def language_view(language_id):
-  language_db = model.Language.get_by_id(language_id)
-  if not language_db:
-    flask.abort(404)
-
-  return flask.render_template(
-    'language/language_view.html',
-    html_class='language-view',
-    title=language_db.name,
-    language_db=language_db,
-    api_url=flask.url_for('api.language', language_key=language_db.key.urlsafe() if language_db.key else ''),
-  )
-
-
-###############################################################################
 # Admin List
 ###############################################################################
 @app.route('/admin/language/')
