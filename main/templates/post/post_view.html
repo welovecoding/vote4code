@@ -6,10 +6,7 @@
 # block content
   <div class="page-header">
     <div class="pull-right">
-      <a class="btn btn-default" href="{{url_for('post_update')}}" title="Add Post">
-        <span class="fa fa-plus fa-fw"></span>
-      </a>
-      # if post_db.user_key.id == current_user.id
+      # if post_db.user_key.id() == current_user.id
         <a class="btn btn-primary" href="{{url_for('post_update', post_id=post_db.key.id())}}">
           <span class="fa fa-fw fa-pencil"></span> Edit
         </a>
