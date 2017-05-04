@@ -41,7 +41,7 @@
     # set user_db = v_db.user_key.get()
     <img class="img-thumbnail" src="{{user_db.avatar_url_size(64)}}" width="32" height="32" title="{{user_db.name}}">
   # endfor
-  <pre>{{post_db.variant_a}}</pre>
+  <pre><code class="{{post_db.language_key.get().name.lower()}}">{{post_db.variant_a}}</code></pre>
   <hr>
   <div class="row">
     <div class="col-xs-2">
@@ -60,7 +60,7 @@
     # set user_db = v_db.user_key.get()
     <img class="img-thumbnail" src="{{user_db.avatar_url_size(64)}}" width="32" height="32" title="{{user_db.name}}">
   # endfor
-  <pre>{{post_db.variant_b}}</pre>
+  <pre><code class="{{post_db.language_key.get().name.lower()}}">{{post_db.variant_b}}</code></pre>
 
   <hr>
 

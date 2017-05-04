@@ -9,3 +9,6 @@ $ -> $('html.user-list').each ->
 
 $ -> $('html.user-merge').each ->
   init_user_merge()
+
+$ -> $('html.post-view').each ->
+  initPostView()
