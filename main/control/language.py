@@ -41,6 +41,11 @@ class LanguageUpdateAdminForm(flask_wtf.FlaskForm):
     [wtforms.validators.required(), wtforms.validators.length(max=500)],
     filters=[util.strip_filter],
   )
+  slug = wtforms.StringField(
+    model.Language.slug._verbose_name,
+    [wtforms.validators.required(), wtforms.validators.length(max=500)],
+    filters=[util.strip_filter],
+  )
 
 
 @app.route('/admin/language/create/', methods=['GET', 'POST'])

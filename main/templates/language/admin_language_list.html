@@ -19,6 +19,7 @@
       <thead>
         <tr class="text-nowrap">
           <th class="col-xs-1">{{utils.order_by_link('name', 'Name')}}</th>
+          <th class="col-xs-1">{{utils.order_by_link('slug', 'Slug')}}</th>
           <th class="col-xs-1">{{utils.order_by_link('modified', 'Modified')}}<br><small>{{utils.order_by_link('created', 'Created')}}</small></th>
         </tr>
       </thead>
@@ -26,6 +27,7 @@
         # for language_db in language_dbs
           <tr class="row-link" id="{{language_db.key.urlsafe()}}" data-href="{{url_for('admin_language_update', language_id=language_db.key.id())}}">
             <td>{{language_db.name}}</td>
+            <td>{{language_db.slug}}</td>
             <td>
               <time datetime="{{language_db.modified}}">
                 {{language_db.modified.strftime('%Y-%m-%d')}}
