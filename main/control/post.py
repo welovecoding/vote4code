@@ -111,12 +111,15 @@ def post_view(post_id):
     break
   votes_b = len(vote_dbs) - votes_a
 
-  # my own votes
-  my_vote_dbs, _ = model.Vote.get_dbs(
-    limit=1,
-    ancestor=post_db.key,
-    user_key=auth.current_user_key(),
-  )
+  # my own votes, could be done better
+  user_key = auth.current_user_key()
+  my_vote_dbs = []
+  if user_key:
+    my_vote_dbs, _ = model.Vote.get_dbs(
+      limit=1,
+      ancestor=post_db.key,
+      user_key=auth.current_user_key(),
+    )
 
   return flask.render_template(
     'post/post_view.html',
