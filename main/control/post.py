@@ -66,26 +66,10 @@ def post_update(post_id=0):
 
   return flask.render_template(
     'post/post_update.html',
-    title=post_db.title if post_id else 'New Post',
+    title=post_db.title if post_id else 'Add Code Snippets',
     html_class='post-update',
     form=form,
     post_db=post_db,
-  )
-
-
-###############################################################################
-# List
-###############################################################################
-@app.route('/post/')
-def post_list():
-  post_dbs, post_cursor = model.Post.get_dbs()
-  return flask.render_template(
-    'post/post_list.html',
-    html_class='post-list',
-    title='Post List',
-    post_dbs=post_dbs,
-    next_url=util.generate_next_url(post_cursor),
-    api_url=flask.url_for('api.post.list'),
   )
 
 
