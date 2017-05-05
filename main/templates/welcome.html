@@ -5,8 +5,8 @@
   <div class="jumbotron">
     <div class="container text-center">
       <h1>{{config.CONFIG_DB.brand_name}}</h1>
-      <p>Start voting for your favorite version of code. ;-)</p>
-      <a class="btn btn-lg btn-primary" href="{{url_for('post_update')}}">
+      <p>{{config.TAGLINE}}</p>
+      <a class="btn btn-lg btn-success" href="{{url_for('post_update')}}">
         <fa class="fa fa-code fa-fw"></fa> Submit Code
       </a>
     </div>
@@ -14,6 +14,35 @@
 # endblock
 
 # block content
+
+  <h2>Top Fights!</h2>
+
+  # for post_db in top_post_dbs
+    <div class="top-post">
+      # set user_db = post_db.user_key.get()
+      <div class="post-votes">{{post_db.votes}}</div>
+      <div class="post-avatar"><img src="{{user_db.avatar_url_size(128)}}"></div>
+      <div class="post-body">
+        <div class="title">
+          <a href="{{url_for('post_view', post_id=post_db.key.id(), slug=slugify(post_db.title))}}">
+            {{post_db.language_key.get().name}} &mdash; {{post_db.title}}
+          </a>
+        </div>
+        <div class="author">by {{user_db.name}}</div>
+        <div class="post-progress progress">
+          <div class="progress-bar progress-bar-danger" style="width: {{100 * post_db.votes_a_percentage}}%">
+            {{post_db.votes_a}}
+          </div>
+          <div class="progress-bar progress-bar-info" style="width: {{100 * post_db.votes_b_percentage}}%">
+            {{post_db.votes_b}}
+          </div>
+        </div>
+      </div>
+    </div>
+  # endfor
+
+  <h2>Latest Fights</h2>
+
   <div class="table-responsive {{'hide' if not post_dbs|count}}">
     <table class="table table-striped table-bordered table-hover">
       <thead>
@@ -28,7 +57,7 @@
       </thead>
       <tbody>
         # for post_db in post_dbs
-          <tr class="row-link" id="{{post_db.key.urlsafe()}}" data-href="{{url_for('post_view', post_id=post_db.key.id())}}">
+          <tr class="row-link" id="{{post_db.key.urlsafe()}}" data-href="{{url_for('post_view', post_id=post_db.key.id(), slug=slugify(post_db.title))}}">
             <td class="text-center h4">
               {{post_db.votes}}<br>
               <div class="progress">

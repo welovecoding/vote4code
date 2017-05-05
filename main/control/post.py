@@ -83,12 +83,15 @@ class CommentUpdateForm(flask_wtf.FlaskForm):
     filters=[util.strip_filter],
   )
 
-@app.route('/post/<int:post_id>/', methods=['GET', 'POST'])
-def post_view(post_id):
+@app.route('/<int:post_id>/', methods=['GET', 'POST'])
+@app.route('/<int:post_id>/<slug>', methods=['GET', 'POST'])
+def post_view(post_id, slug=None):
   post_db = model.Post.get_by_id(post_id)
   if not post_db:
     flask.abort(404)
 
+  if flask.request.method == 'GET' and slug != util.slugify(post_db.title):
+    return flask.redirect(flask.url_for('post_view', post_id=post_id, slug=util.slugify(post_db.title)))
   vote_dbs, vote_cursor = model.Vote.get_dbs(
     limit=-1,
     ancestor=post_db.key,
@@ -127,11 +130,11 @@ def post_view(post_id):
     comment_db.put()
     return flask.redirect(flask.url_for('post_view', post_id=post_db.key.id()) + '#comments')
 
-
   return flask.render_template(
     'post/post_view.html',
     html_class='post-view',
-    title=post_db.title,
+    title=u'%s — %s' % (post_db.language_key.get().name, post_db.title),
+    description='Cast your vote now at vote4code!',
     vote_dbs=vote_dbs,
     vote_db=vote_db,
     votes_a=votes_a,

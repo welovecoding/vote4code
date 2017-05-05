@@ -15,11 +15,10 @@
     <h1>
       # set user_db = post_db.user_key.get()
       <img class="img-thumbnail" src="{{user_db.avatar_url_size(96)}}" width="48" height="48">
-      {{title}}
-      <small>{{post_db.language_key.get().name}}</small>
+      {{post_db.title}} <br>
       <small>
-        by
-        {{user_db.name}}
+        {{post_db.language_key.get().name}}
+        by {{user_db.name}}
       </small>
     </h1>
   </div>

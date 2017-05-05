@@ -1,0 +1,10 @@
+<meta name="twitter:card" content="summary_large_image">
+# if title and html_class == 'welcome'
+  <meta property="og:title" content="{{title}}">
+# else
+  <meta property="og:title" content="{{title + ' · ' if title}}{{config.CONFIG_DB.brand_name}}">
+# endif
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{canonical_url or request.url}}">
+<meta property="og:image" content="{{request.host_url}}p/img/fight-640.png">
+<meta property="og:description" name="description" content="{{description or config.TAGLINE}}">
