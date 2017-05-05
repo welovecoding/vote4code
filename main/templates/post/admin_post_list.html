@@ -23,6 +23,8 @@
           <th class="col-xs-1">{{utils.order_by_link('variant_a', 'Variant A')}}</th>
           <th class="col-xs-1">{{utils.order_by_link('variant_b', 'Variant B')}}</th>
           <th class="col-xs-1">{{utils.order_by_link('user_key', 'User Key')}}</th>
+          <th class="col-xs-1 text-right">{{utils.order_by_link('votes_a', 'Votes A')}}</th>
+          <th class="col-xs-1 text-right">{{utils.order_by_link('votes_b', 'Votes B')}}</th>
           <th class="col-xs-1">{{utils.order_by_link('user_key', 'User')}}</th>
           <th class="col-xs-1">{{utils.order_by_link('modified', 'Modified')}}<br><small>{{utils.order_by_link('created', 'Created')}}</small></th>
         </tr>
@@ -35,6 +37,8 @@
             <td>{{post_db.variant_a}}</td>
             <td>{{post_db.variant_b}}</td>
             <td>{{post_db.user_key.get().name if post_db.user_key else ''}}</td>
+            <td class="text-right">{{post_db.votes_a}}</td>
+            <td class="text-right">{{post_db.votes_b}}</td>
             <td>
               # set user_db = post_db.user_key.get()
               <img src="{{user_db.avatar_url_size(36)}}" width="18" height="18">

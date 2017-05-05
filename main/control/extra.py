@@ -27,4 +27,5 @@ def post_vote(post_id, variant):
   )
   vote_db.variant = variant
   vote_db.put()
+
   return flask.redirect(flask.url_for('post_view', post_id=post_db.key.id()))

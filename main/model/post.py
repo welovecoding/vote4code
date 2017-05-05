@@ -15,6 +15,24 @@ class Post(model.Base):
   variant_a = ndb.TextProperty(required=True)
   variant_b = ndb.TextProperty(required=True)
   user_key = ndb.KeyProperty(kind=model.User, required=True)
+  votes_a = ndb.IntegerProperty(default=0)
+  votes_b = ndb.IntegerProperty(default=0)
+
+  @ndb.ComputedProperty
+  def votes(self):
+    return self.votes_a + self.votes_b
+
+  @ndb.ComputedProperty
+  def votes_a_percentage(self):
+    if self.votes > 0:
+      return 1.0 * self.votes_a / self.votes
+    return 0
+
+  @ndb.ComputedProperty
+  def votes_b_percentage(self):
+    if self.votes > 0:
+      return 1.0 * self.votes_b / self.votes
+    return 0
 
   @classmethod
   def get_dbs(cls, order=None, **kwargs):
@@ -38,6 +56,8 @@ class Post(model.Base):
     'variant_a': fields.String,
     'variant_b': fields.String,
     'user_key': fields.Key,
+    'votes_a': fields.Integer,
+    'votes_b': fields.Integer,
   }
 
   FIELDS.update(model.Base.FIELDS)

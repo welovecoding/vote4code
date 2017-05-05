@@ -18,9 +18,9 @@
     <table class="table table-striped table-bordered table-hover">
       <thead>
         <tr class="text-nowrap">
-          <th class="col-xs-1">{{utils.order_by_link('user_key', 'User')}}</th>
-          <th class="col-xs-2">{{utils.order_by_link('title', 'Title')}}</th>
-          <th class="col-xs-1">{{utils.order_by_link('language_key', 'Language')}}</th>
+          <th class="col-xs-1">{{utils.order_by_link('votes', 'Votes')}}</th>
+          <th class="col-xs-3">{{utils.order_by_link('title', 'Title')}}</th>
+          <th>{{utils.order_by_link('language_key', 'Language')}}</th>
           <th class="col-xs-4">Variant A</th>
           <th class="col-xs-4">Variant B</th>
           <th>{{utils.order_by_link('created', 'Created')}}</th>
@@ -29,16 +29,27 @@
       <tbody>
         # for post_db in post_dbs
           <tr class="row-link" id="{{post_db.key.urlsafe()}}" data-href="{{url_for('post_view', post_id=post_db.key.id())}}">
-            <td class="text-nowrap">
-              # set user_db = post_db.user_key.get()
-              <img src="{{user_db.avatar_url_size(36)}}" width="18" height="18">
-              {{user_db.name}}
+            <td class="text-center h4">
+              {{post_db.votes}}<br>
+              <div class="progress">
+                <div class="progress-bar progress-bar-danger" style="width: {{100 * post_db.votes_a_percentage}}%">
+                </div>
+                <div class="progress-bar progress-bar-info" style="width: {{100 * post_db.votes_b_percentage}}%">
+                </div>
+              </div>
             </td>
-            <td class="ellipsis">{{post_db.title}}</td>
-            <td>{{post_db.language_key.get().name}}</td>
+            <td class="ellipsis">
+              # set user_db = post_db.user_key.get()
+              <img src="{{user_db.avatar_url_size(36)}}" width="14" height="14"> {{post_db.title}}<br>
+              <small class="text-muted">
+                by {{user_db.name}}
+              </small>
+            </td>
+
+            <td class="text-center">{{post_db.language_key.get().name}}</td>
             <td class="ellipsis">{{post_db.variant_a}}</td>
             <td class="ellipsis">{{post_db.variant_b}}</td>
-            <td class="text-nowrap">
+            <td class="text-nowrap text-center">
               <time class="small" datetime="{{post_db.created}}">
                 {{post_db.created.strftime('%Y-%m-%d')}}
               </time>
