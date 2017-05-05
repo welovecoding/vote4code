@@ -134,7 +134,7 @@ def post_view(post_id, slug=None):
     'post/post_view.html',
     html_class='post-view',
     title=u'%s — %s' % (post_db.language_key.get().name, post_db.title),
-    description='Cast your vote now!',
+    description='Cast your vote now at vote4code!',
     vote_dbs=vote_dbs,
     vote_db=vote_db,
     votes_a=votes_a,
