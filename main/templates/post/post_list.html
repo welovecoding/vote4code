@@ -20,7 +20,6 @@
           <th class="col-xs-1">{{utils.order_by_link('language_key', 'Language')}}</th>
           <th class="col-xs-1">{{utils.order_by_link('variant_a', 'Variant A')}}</th>
           <th class="col-xs-1">{{utils.order_by_link('variant_b', 'Variant B')}}</th>
-          <th class="col-xs-1 text-right">{{utils.order_by_link('vote_count', 'Vote Count')}}</th>
         </tr>
       </thead>
       <tbody>
@@ -30,7 +29,6 @@
             <td>{{post_db.language_key.get().name if post_db.language_key else ''}}</td>
             <td>{{post_db.variant_a}}</td>
             <td>{{post_db.variant_b}}</td>
-            <td class="text-right">{{post_db.vote_count}}</td>
           </tr>
         # endfor
       </tbody>

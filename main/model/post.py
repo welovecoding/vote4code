@@ -15,7 +15,8 @@ class Post(model.Base):
   variant_a = ndb.TextProperty(required=True)
   variant_b = ndb.TextProperty(required=True)
   user_key = ndb.KeyProperty(kind=model.User, required=True)
-  vote_count = ndb.IntegerProperty(default=0)
+  votes_a = ndb.IntegerProperty(default=0)
+  votes_b = ndb.IntegerProperty(default=0)
 
   @classmethod
   def get_dbs(cls, order=None, **kwargs):
@@ -39,7 +40,8 @@ class Post(model.Base):
     'variant_a': fields.String,
     'variant_b': fields.String,
     'user_key': fields.Key,
-    'vote_count': fields.Integer,
+    'votes_a': fields.Integer,
+    'votes_b': fields.Integer,
   }
 
   FIELDS.update(model.Base.FIELDS)
