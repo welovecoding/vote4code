@@ -76,7 +76,14 @@ def post_update(post_id=0):
 ###############################################################################
 # View
 ###############################################################################
-@app.route('/post/<int:post_id>/')
+class CommentUpdateForm(flask_wtf.FlaskForm):
+  content = wtforms.TextAreaField(
+    model.Comment.content._verbose_name,
+    [wtforms.validators.required()],
+    filters=[util.strip_filter],
+  )
+
+@app.route('/post/<int:post_id>/', methods=['GET', 'POST'])
 def post_view(post_id):
   post_db = model.Post.get_by_id(post_id)
   if not post_db:
@@ -107,6 +114,20 @@ def post_view(post_id):
     post_db.votes_b = votes_b
     post_db.put()
 
+  # Comments staff
+
+  form = CommentUpdateForm()
+  if form.validate_on_submit():
+    comment_db = model.Comment(
+      parent=post_db.key,
+      user_key=auth.current_user_key(),
+      post_key=post_db.key,
+    )
+    form.populate_obj(comment_db)
+    comment_db.put()
+    return flask.redirect(flask.url_for('post_view', post_id=post_db.key.id()) + '#comments')
+
+
   return flask.render_template(
     'post/post_view.html',
     html_class='post-view',
@@ -116,6 +137,7 @@ def post_view(post_id):
     votes_a=votes_a,
     votes_b=votes_b,
     post_db=post_db,
+    form=form,
     api_url=flask.url_for('api.post', post_key=post_db.key.urlsafe() if post_db.key else ''),
   )
 

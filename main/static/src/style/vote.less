@@ -25,3 +25,22 @@
     margin-top: 0;
   }
 }
+
+.comment {
+  padding: 8px;
+  margin-bottom: @line-height-computed;
+  border: 1px solid @hr-border;
+  border-radius: 4px;
+  .meta {
+    margin-top: 12px;
+    .user {
+      .text-warning;
+    }
+
+    time {
+      .pull-right;
+      .text-success;
+      .small;
+    }
+  }
+}

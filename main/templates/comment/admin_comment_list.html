@@ -1,0 +1,54 @@
+# extends 'admin/admin_base.html'
+# import 'macro/utils.html' as utils
+
+# block head
+  {{utils.prefetch_link(next_url)}}
+# endblock
+
+# block admin_content
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <a class="btn btn-sm btn-primary" href="{{url_for('admin_comment_update')}}">
+        <span class="fa fa-plus"></span> New Comment
+      </a>
+    </div>
+  </div>
+
+  <div class="table-responsive {{'hide' if not comment_dbs|count}}">
+    <table class="table table-striped table-bordered table-hover">
+      <thead>
+        <tr class="text-nowrap">
+          <th class="col-xs-1">{{utils.order_by_link('content', 'Content')}}</th>
+          <th class="col-xs-1">{{utils.order_by_link('user_key', 'User Key')}}</th>
+          <th class="col-xs-1">{{utils.order_by_link('post_key', 'Post')}}</th>
+          <th class="col-xs-1">{{utils.order_by_link('user_key', 'User')}}</th>
+          <th class="col-xs-1">{{utils.order_by_link('modified', 'Modified')}}<br><small>{{utils.order_by_link('created', 'Created')}}</small></th>
+        </tr>
+      </thead>
+      <tbody>
+        # for comment_db in comment_dbs
+          <tr class="row-link" id="{{comment_db.key.urlsafe()}}" data-href="{{url_for('admin_comment_update', comment_id=comment_db.key.id())}}">
+            <td>{{comment_db.content}}</td>
+            <td>{{comment_db.user_key.get().name if comment_db.user_key else ''}}</td>
+            <td>{{comment_db.post_key.get().title if comment_db.post_key else ''}}</td>
+            <td>
+              # set user_db = comment_db.user_key.get()
+              <img src="{{user_db.avatar_url_size(36)}}" width="18" height="18">
+              {{user_db.name}}
+            </td>
+            <td>
+              <time datetime="{{comment_db.modified}}">
+                {{comment_db.modified.strftime('%Y-%m-%d')}}
+              </time><br>
+              <time class="text-success small" datetime="{{comment_db.created}}">
+                {{comment_db.created.strftime('%Y-%m-%d')}}
+              </time>
+            </td>
+          </tr>
+        # endfor
+      </tbody>
+    </table>
+  </div>
+
+  {{utils.next_link(next_url)}}
+# endblock

@@ -63,8 +63,43 @@
   <pre><code class="{{post_db.language_key.get().slug}}">{{post_db.variant_b}}</code></pre>
 
   <hr>
-
-  <p class="text-center">
-    <a class="btn btn-primary" href="{{url_for('welcome')}}">View All Posts</a>
-  </p>
+  <div class="anchor" id="comments"></div>
+  <div class="row">
+    <div class="col-md-offset-2 col-sm-8">
+      # for comment_db in post_db.get_comment_dbs(limit=-1, order='created')[0]
+        <div class="comment">
+          <div class="content">
+            {{comment_db.content.replace('\n', '<br>')|safe}}
+          </div>
+          <div class="meta">
+            <time datetime="{{comment_db.created}}">
+              {{comment_db.created.strftime('%Y-%m-%d')}}
+            </time>
+            <div class="user">
+              # set user_db = comment_db.user_key.get()
+              <img src="{{user_db.avatar_url_size(96)}}" width="18" height="18">
+              {{user_db.name}}
+            </div>
+          </div>
+        </div>
+      # endfor
+      <form method="POST" action="." novalidate>
+        {{form.csrf_token}}
+        # if form.content.errors
+          <div class="form-group {{'has-error' if form.content.errors}}">
+            {{form.content(class='form-control', rows=4, autofocus=True)}}
+            {{forms.field_errors(form.content)}}
+          </div>
+        # else
+          <div class="form-group">
+            {{form.content(class='form-control', rows=4)}}
+            <p class="help-block">Plain text only, markdown support is coming soon! Be gentle :)</p>
+          </div>
+        # endif
+        <button type="submit" class="btn btn-primary btn-block btn-loading" {{forms.data_loading_text()}}>
+          Comment
+        </button>
+      </form>
+    </div>
+  </div>
 # endblock

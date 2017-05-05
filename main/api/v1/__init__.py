@@ -6,3 +6,4 @@ from .user import *
 from .language import *
 from .post import *
 from .vote import *
+from .comment import *
