@@ -3,65 +3,70 @@
 # import 'macro/utils.html' as utils
 
 
-# block content
+# block header
+  <div class="post-progress progress">
+    <div class="progress-bar progress-bar-danger" style="width: {{100 * post_db.votes_a_percentage}}%"></div>
+    <div class="progress-bar progress-bar-info" style="width: {{100 * post_db.votes_b_percentage}}%"></div>
+  </div>
   <div class="page-header">
-    <div class="pull-right">
-      # if post_db.user_key.id() == current_user.id
-        <a class="btn btn-primary" href="{{url_for('post_update', post_id=post_db.key.id())}}">
-          <span class="fa fa-fw fa-pencil"></span> Edit
-        </a>
-      # endif
+    <div class="container">
+      <div class="pull-right">
+        # if post_db.user_key.id() == current_user.id
+          <a class="btn btn-primary" href="{{url_for('post_update', post_id=post_db.key.id())}}">
+            <span class="fa fa-fw fa-pencil"></span> Edit
+          </a>
+        # endif
+      </div>
+      <h1 class="text-center">
+        # set user_db = post_db.user_key.get()
+        <img class="img-thumbnail" src="{{user_db.avatar_url_size(96)}}" width="48" height="48">
+        {{post_db.title}}
+        <small>
+          {{post_db.language_key.get().name}}
+          by {{user_db.name}}
+        </small>
+      </h1>
     </div>
-    <h1>
-      # set user_db = post_db.user_key.get()
-      <img class="img-thumbnail" src="{{user_db.avatar_url_size(96)}}" width="48" height="48">
-      {{post_db.title}} <br>
-      <small>
-        {{post_db.language_key.get().name}}
-        by {{user_db.name}}
-      </small>
-    </h1>
   </div>
 
-  <div class="row">
-    <div class="col-xs-2">
-      <form action="{{url_for('post_vote', post_id=post_db.key.id(), variant='a')}}">
-        <button class="btn {{'btn-success' if (vote_db and vote_db.variant == 'a') else 'btn-default'}}">
-          <span class="fa fa-fw fa-arrow-up"></span>
-          {{votes_a}}
-        </button>
-      </form>
-    </div>
-    <div class="col-xs-10 text-right">
-      <h3>Variant A</h3>
+  <div class="code-split">
+    <div class="row">
+      <div class="col-md-6">
+        <form class="text-center" action="{{url_for('post_vote', post_id=post_db.key.id(), variant='a')}}">
+          <button class="btn {{'btn-success' if (vote_db and vote_db.variant == 'a') else 'btn-default'}}">
+            <span class="fa fa-fw fa-arrow-up"></span>
+            {{votes_a}}
+          </button>
+        </form>
+        <pre class="variant-a"><code class="{{post_db.language_key.get().slug}}">{{post_db.variant_a}}</code></pre>
+        <div class="post-votes">
+          # for v_db in vote_dbs if v_db.variant == 'a'
+            # set user_db = v_db.user_key.get()
+            <img class="img-thumbnail" src="{{user_db.avatar_url_size(64)}}" width="32" height="32" title="{{user_db.name}}">
+          # endfor
+        </div>
+      </div>
+      <hr class="visible-xs visible-sm">
+      <div class="col-md-6">
+        <form class="text-center" action="{{url_for('post_vote', post_id=post_db.key.id(), variant='b')}}">
+          <button class="btn {{'btn-success' if vote_db and vote_db.variant == 'b' else 'btn-default'}}">
+            <span class="fa fa-fw fa-arrow-up"></span>
+            {{votes_b}}
+          </button>
+        </form>
+        <pre class="variant-b"><code class="{{post_db.language_key.get().slug}}">{{post_db.variant_b}}</code></pre>
+        <div class="post-votes">
+          # for v_db in vote_dbs if v_db.variant == 'b'
+            # set user_db = v_db.user_key.get()
+            <img class="img-thumbnail" src="{{user_db.avatar_url_size(64)}}" width="32" height="32" title="{{user_db.name}}">
+          # endfor
+        </div>
+      </div>
     </div>
   </div>
-  # for v_db in vote_dbs if v_db.variant == 'a'
-    # set user_db = v_db.user_key.get()
-    <img class="img-thumbnail" src="{{user_db.avatar_url_size(64)}}" width="32" height="32" title="{{user_db.name}}">
-  # endfor
-  <pre><code class="{{post_db.language_key.get().slug}}">{{post_db.variant_a}}</code></pre>
-  <hr>
-  <div class="row">
-    <div class="col-xs-2">
-      <form class="form-inline" action="{{url_for('post_vote', post_id=post_db.key.id(), variant='b')}}">
-        <button class="btn {{'btn-success' if vote_db and vote_db.variant == 'b' else 'btn-default'}}">
-          <span class="fa fa-fw fa-arrow-up"></span>
-          {{votes_b}}
-        </button>
-      </form>
-    </div>
-    <div class="col-xs-10 text-right">
-      <h3>Variant B</h3>
-    </div>
-  </div>
-  # for v_db in vote_dbs if v_db.variant == 'b'
-    # set user_db = v_db.user_key.get()
-    <img class="img-thumbnail" src="{{user_db.avatar_url_size(64)}}" width="32" height="32" title="{{user_db.name}}">
-  # endfor
-  <pre><code class="{{post_db.language_key.get().slug}}">{{post_db.variant_b}}</code></pre>
+# endblock
 
-  <hr>
+# block content
   <div class="anchor" id="comments"></div>
   <div class="row">
     <div class="col-md-offset-2 col-sm-8">
