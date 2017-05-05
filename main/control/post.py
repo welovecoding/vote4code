@@ -102,8 +102,9 @@ def post_view(post_id):
     vote_db = model.Vote.query(model.Vote.user_key == user_key, ancestor=post_db.key).get()
 
   # Update total votes:
-  if len(vote_dbs) != post_db.vote_count:
-    post_db.vote_count = len(vote_dbs)
+  if votes_a != post_db.votes_a or votes_b != post_db.votes_b:
+    post_db.votes_a = votes_a
+    post_db.votes_b = votes_b
     post_db.put()
 
   return flask.render_template(

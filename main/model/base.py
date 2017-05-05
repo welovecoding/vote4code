@@ -22,18 +22,6 @@ class Base(ndb.Model):
     return cls.query(getattr(cls, name) == value).get()
 
   @classmethod
-  @ndb.transactional
-  def my_get_or_insert(cls, id, parent=None, **kwds):
-    key = ndb.Key(cls, id, parent=parent)
-    ent = key.get()
-    if ent is not None:
-      return (ent, False)  # False meaning "not created"
-    ent = cls(parent=parent, **kwds)
-    ent.key = key
-    ent.put()
-    return (ent, True)  # True meaning "created"
-
-  @classmethod
   def get_dbs(cls, query=None, ancestor=None, order=None, limit=None, cursor=None, **kwargs):
     args = parser.parse({
       'cursor': wf.Str(missing=None),
