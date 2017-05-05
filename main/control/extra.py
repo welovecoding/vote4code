@@ -18,7 +18,7 @@ def post_vote(post_id, variant):
     flask.abort(404)
   user_db = auth.current_user_db()
   code = '%s-%s' % (post_db.key.id(), user_db.key.id())
-  vote_db = model.Vote.get_or_insert(
+  vote_db, is_new = model.Vote.my_get_or_insert(
     code,
     parent=post_db.key,
     user_key=user_db.key,
@@ -27,4 +27,5 @@ def post_vote(post_id, variant):
   )
   vote_db.variant = variant
   vote_db.put()
+
   return flask.redirect(flask.url_for('post_view', post_id=post_db.key.id()))

@@ -97,20 +97,21 @@ def post_view(post_id):
 
   # my own votes, could be done better
   user_key = auth.current_user_key()
-  my_vote_dbs = []
+  vote_db = None
   if user_key:
-    my_vote_dbs, _ = model.Vote.get_dbs(
-      limit=1,
-      ancestor=post_db.key,
-      user_key=auth.current_user_key(),
-    )
+    vote_db = model.Vote.query(model.Vote.user_key == user_key, ancestor=post_db.key).get()
+
+  # Update total votes:
+  if len(vote_dbs) != post_db.vote_count:
+    post_db.vote_count = len(vote_dbs)
+    post_db.put()
 
   return flask.render_template(
     'post/post_view.html',
     html_class='post-view',
     title=post_db.title,
     vote_dbs=vote_dbs,
-    vote_db=my_vote_dbs[0] if my_vote_dbs else None,
+    vote_db=vote_db,
     votes_a=votes_a,
     votes_b=votes_b,
     post_db=post_db,
