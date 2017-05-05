@@ -7,3 +7,4 @@ from .user import User
 from .language import Language
 from .post import Post
 from .vote import Vote
+from .comment import Comment
