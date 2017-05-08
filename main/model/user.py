@@ -35,7 +35,20 @@ class User(model.Base):
         return auth_id
     return None
 
+  def has_github(self):
+    for auth_id in self.auth_ids:
+      if auth_id.startswith('github'):
+        return auth_id
+    return None
+
   def avatar_url_size(self, size=None):
+    github_id = self.has_github()
+    if github_id:
+      return '//avatars.githubusercontent.com/u/%(id)s%(size)s' % {
+        'id': github_id.split('_')[1],
+        'size': '?size=%s' % (size) if size else '',
+      }
+
     facebook_id = self.has_facebook()
     if facebook_id:
       return '//graph.facebook.com/%(id)s/picture%(size)s' % {
