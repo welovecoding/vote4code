@@ -95,7 +95,7 @@ def post_view(post_id, slug=None):
   vote_dbs, vote_cursor = model.Vote.get_dbs(
     limit=-1,
     ancestor=post_db.key,
-    order='variant',
+    order='variant,created',
   )
   votes_a = 0
   for vote_db in vote_dbs:
