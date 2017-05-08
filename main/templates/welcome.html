@@ -19,83 +19,88 @@
 # endblock
 
 # block content
+  <section class="hide">
+    <div class="anchor" id="top"></div>
+    <h2><a href="#top">Top Fights!</a></h2>
 
-  <h2>Top Fights!</h2>
-
-  # for post_db in top_post_dbs
-    <div class="top-post">
-      # set user_db = post_db.user_key.get()
-      <div class="post-votes">{{post_db.votes}}</div>
-      <div class="post-avatar"><img src="{{user_db.avatar_url_size(128)}}"></div>
-      <div class="post-body">
-        <div class="title">
-          <a href="{{url_for('post_view', post_id=post_db.key.id(), slug=slugify(post_db.title))}}">
-            {{post_db.language_key.get().name}} &mdash; {{post_db.title}}
-          </a>
-        </div>
-        <div class="author">by {{user_db.name}}</div>
-        <div class="post-progress progress">
-          <div class="progress-bar progress-bar-danger" style="width: {{100 * post_db.votes_a_percentage}}%">
-            {{post_db.votes_a}}
+    # for post_db in top_post_dbs
+      <div class="top-post">
+        # set user_db = post_db.user_key.get()
+        <div class="post-votes">{{post_db.votes}}</div>
+        <div class="post-avatar"><img src="{{user_db.avatar_url_size(128)}}"></div>
+        <div class="post-body">
+          <div class="title">
+            <a href="{{url_for('post_view', post_id=post_db.key.id(), slug=slugify(post_db.title))}}">
+              {{post_db.language_key.get().name}} &mdash; {{post_db.title}}
+            </a>
           </div>
-          <div class="progress-bar progress-bar-info" style="width: {{100 * post_db.votes_b_percentage}}%">
-            {{post_db.votes_b}}
+          <div class="author">by {{user_db.name}}</div>
+          <div class="post-progress progress">
+            <div class="progress-bar progress-bar-danger" style="width: {{100 * post_db.votes_a_percentage}}%">
+              {{post_db.votes_a}}
+            </div>
+            <div class="progress-bar progress-bar-info" style="width: {{100 * post_db.votes_b_percentage}}%">
+              {{post_db.votes_b}}
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  # endfor
+    # endfor
+  </section>
 
-  <h2>Latest Fights</h2>
+  <section>
+    <div class="anchor" id="latest"></div>
+    <h2><a href="#latest">Latest Fights</a></h2>
 
-  <div class="table-responsive {{'hide' if not post_dbs|count}}">
-    <table class="table table-striped table-bordered table-hover">
-      <thead>
-        <tr class="text-nowrap">
-          <th class="col-xs-1">{{utils.order_by_link('votes', 'Votes')}}</th>
-          <th class="col-xs-3" colspan="2">{{utils.order_by_link('title', 'Title')}}</th>
-          <th>{{utils.order_by_link('language_key', 'Language')}}</th>
-          <th class="col-xs-4">Variant A</th>
-          <th class="col-xs-4">Variant B</th>
-          <th>{{utils.order_by_link('created', 'Created')}}</th>
-        </tr>
-      </thead>
-      <tbody>
-        # for post_db in post_dbs
-          <tr class="row-link" id="{{post_db.key.urlsafe()}}" data-href="{{url_for('post_view', post_id=post_db.key.id(), slug=slugify(post_db.title))}}">
-            <td class="text-center h4">
-              {{post_db.votes}}<br>
-              <div class="progress">
-                <div class="progress-bar progress-bar-danger" style="width: {{100 * post_db.votes_a_percentage}}%">
-                </div>
-                <div class="progress-bar progress-bar-info" style="width: {{100 * post_db.votes_b_percentage}}%">
-                </div>
-              </div>
-            </td>
-            <td>
-              # set user_db = post_db.user_key.get()
-              <img src="{{user_db.avatar_url_size(64)}}" width="32" height="32">
-            </td>
-            <td>
-              {{post_db.title}}<br>
-              <small class="text-muted">
-                by {{user_db.name}}
-              </small>
-            </td>
-
-            <td class="text-center">{{post_db.language_key.get().name}}</td>
-            <td class="ellipsis">{{post_db.variant_a}}</td>
-            <td class="ellipsis">{{post_db.variant_b}}</td>
-            <td class="text-nowrap text-center">
-              <time class="small" datetime="{{post_db.created}}">
-                {{post_db.created.strftime('%Y-%m-%d')}}
-              </time>
-            </td>
+    <div class="table-responsive {{'hide' if not post_dbs|count}}">
+      <table class="table table-striped table-bordered table-hover">
+        <thead>
+          <tr class="text-nowrap">
+            <th class="col-xs-1">{{utils.order_by_link('votes', 'Votes', hash='latest', inverse=True)}}</th>
+            <th class="col-xs-3" colspan="2">{{utils.order_by_link('title', 'Title', hash='latest')}}</th>
+            <th>{{utils.order_by_link('language_key', 'Language', hash='latest')}}</th>
+            <th class="col-xs-4">Variant A</th>
+            <th class="col-xs-4">Variant B</th>
+            <th>{{utils.order_by_link('created', 'Created', hash='latest')}}</th>
           </tr>
-        # endfor
-      </tbody>
-    </table>
-  </div>
+        </thead>
+        <tbody>
+          # for post_db in post_dbs
+            <tr class="row-link" id="{{post_db.key.urlsafe()}}" data-href="{{url_for('post_view', post_id=post_db.key.id(), slug=slugify(post_db.title))}}">
+              <td class="text-center h4">
+                {{post_db.votes}}<br>
+                <div class="progress">
+                  <div class="progress-bar progress-bar-danger" style="width: {{100 * post_db.votes_a_percentage}}%">
+                  </div>
+                  <div class="progress-bar progress-bar-info" style="width: {{100 * post_db.votes_b_percentage}}%">
+                  </div>
+                </div>
+              </td>
+              <td>
+                # set user_db = post_db.user_key.get()
+                <img src="{{user_db.avatar_url_size(64)}}" width="32" height="32">
+              </td>
+              <td>
+                {{post_db.title}}<br>
+                <small class="text-muted">
+                  by {{user_db.name}}
+                </small>
+              </td>
 
-  {{utils.next_link(next_url)}}
+              <td class="text-center">{{post_db.language_key.get().name}}</td>
+              <td class="ellipsis">{{post_db.variant_a}}</td>
+              <td class="ellipsis">{{post_db.variant_b}}</td>
+              <td class="text-nowrap text-center">
+                <time class="small" datetime="{{post_db.created}}">
+                  {{post_db.created.strftime('%Y-%m-%d')}}
+                </time>
+              </td>
+            </tr>
+          # endfor
+        </tbody>
+      </table>
+    </div>
+
+    {{utils.next_link(next_url)}}
+  </section>
 # endblock

@@ -1,4 +1,4 @@
-# macro order_by_link(property, title, ignore='cursor', hash=None)
+# macro order_by_link(property, title, ignore='cursor', hash=None, inverse=False)
   # if request.args.get('order') == property
     <a href="{{update_query_argument('order', '-' + property, ignore)}}{{'#%s' % hash if hash}}" rel="nofollow">{{title}}</a>
     <span class="fa fa-sort-up text-muted"></span>
@@ -6,7 +6,7 @@
     <a href="{{update_query_argument('order', property, ignore)}}{{'#%s' % hash if hash}}" rel="nofollow">{{title}}</a>
     <span class="fa fa-sort-down text-muted"></span>
   #else
-    <a href="{{update_query_argument('order', property, ignore)}}{{'#%s' % hash if hash}}" rel="nofollow">{{title}}</a>
+    <a href="{{update_query_argument('order', ('-' if inverse else '') + property, ignore)}}{{'#%s' % hash if hash}}" rel="nofollow">{{title}}</a>
   #endif
 # endmacro
 
