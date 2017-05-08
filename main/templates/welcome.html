@@ -19,39 +19,8 @@
 # endblock
 
 # block content
-  <section class="hide">
-    <div class="anchor" id="top"></div>
-    <h2><a href="#top">Top Fights!</a></h2>
-
-    # for post_db in top_post_dbs
-      <div class="top-post">
-        # set user_db = post_db.user_key.get()
-        <div class="post-votes">{{post_db.votes}}</div>
-        <div class="post-avatar"><img src="{{user_db.avatar_url_size(128)}}"></div>
-        <div class="post-body">
-          <div class="title">
-            <a href="{{url_for('post_view', post_id=post_db.key.id(), slug=slugify(post_db.title))}}">
-              {{post_db.language_key.get().name}} &mdash; {{post_db.title}}
-            </a>
-          </div>
-          <div class="author">by {{user_db.name}}</div>
-          <div class="post-progress progress">
-            <div class="progress-bar progress-bar-danger" style="width: {{100 * post_db.votes_a_percentage}}%">
-              {{post_db.votes_a}}
-            </div>
-            <div class="progress-bar progress-bar-info" style="width: {{100 * post_db.votes_b_percentage}}%">
-              {{post_db.votes_b}}
-            </div>
-          </div>
-        </div>
-      </div>
-    # endfor
-  </section>
-
   <section>
     <div class="anchor" id="latest"></div>
-    <h2><a href="#latest">Latest Fights</a></h2>
-
     <div class="table-responsive {{'hide' if not post_dbs|count}}">
       <table class="table table-striped table-bordered table-hover">
         <thead>
