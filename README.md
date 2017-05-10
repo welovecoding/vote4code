@@ -1,6 +1,6 @@
 # vote4code
 
-The vote4code website is place to upload two different versions of programming solutions to let the community vote for the best one. It's based on [**gae-init**](https://github.com/gae-init/gae-init).
+The vote4code website is place to upload two different versions of programming solutions to let the community vote for the best one. It's based on [**gae-init**](https://gae-init.appspot.com).
 
 ## Requirements
 
