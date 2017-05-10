@@ -91,23 +91,32 @@
           </div>
         </div>
       # endfor
-      <form method="POST" action="." novalidate>
-        {{form.csrf_token}}
-        # if form.content.errors
-          <div class="form-group {{'has-error' if form.content.errors}}">
-            {{form.content(class='form-control', rows=4, autofocus=True)}}
-            {{forms.field_errors(form.content)}}
-          </div>
-        # else
-          <div class="form-group">
-            {{form.content(class='form-control', rows=4)}}
-            <p class="help-block">Plain text only, markdown support is coming soon! Be gentle :)</p>
-          </div>
-        # endif
-        <button type="submit" class="btn btn-primary btn-block btn-loading" {{forms.data_loading_text()}}>
-          Comment
-        </button>
-      </form>
+
+      # if current_user.id > 0
+        <form method="POST" action="." novalidate>
+          {{form.csrf_token}}
+          # if form.content.errors
+            <div class="form-group {{'has-error' if form.content.errors}}">
+              {{form.content(class='form-control', rows=4, autofocus=True)}}
+              {{forms.field_errors(form.content)}}
+            </div>
+          # else
+            <div class="form-group">
+              {{form.content(class='form-control', rows=4)}}
+              <p class="help-block">Plain text only, markdown support is coming soon! Be gentle :)</p>
+            </div>
+          # endif
+          <button type="submit" class="btn btn-primary btn-block btn-loading" {{forms.data_loading_text()}}>
+            Comment
+          </button>
+        </form>
+      # else
+      <p class="text-center">
+        <a class="btn btn-social btn-github" href="{{url_for('signin')}}">
+          <span class="fa fa-fw fa-sign-in"></span> Sign in to comment!
+        </a>
+      </p>
+      # endif
     </div>
   </div>
 # endblock
