@@ -17,15 +17,21 @@
           </a>
         # endif
       </div>
+      <div class="pull-right text-center text-success">
+        <span class="fa fa-fw fa-clock-o"></span>
+        <time datetime="{{post_db.created}}">
+          {{post_db.created.strftime('%Y-%m-%d')}}
+        </time>
+      </div>
       <h1 class="text-center">
-        # set user_db = post_db.user_key.get()
-        <img class="img-thumbnail" src="{{user_db.avatar_url_size(96)}}" width="48" height="48">
+        <small>{{post_db.language_key.get().name}}</small><br>
         {{post_db.title}}
-        <small>
-          {{post_db.language_key.get().name}}
-          by {{user_db.name}}
-        </small>
       </h1>
+      <p class="lead text-center text-muted">
+        # set user_db = post_db.user_key.get()
+        <img class="img-thumbnail" src="{{user_db.avatar_url_size(80)}}" width="40" height="40">
+        by {{user_db.name}}<br>
+      </p>
     </div>
   </div>
 
