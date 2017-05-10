@@ -11,17 +11,17 @@
   <div class="page-header">
     <div class="container">
       <div class="pull-right">
+        <span class="text-success">
+          <span class="fa fa-fw fa-clock-o"></span>
+          <time datetime="{{post_db.created}}">
+            {{post_db.created.strftime('%Y-%m-%d')}}
+          </time>
+        </span>
         # if post_db.user_key.id() == current_user.id
-          <a class="btn btn-primary" href="{{url_for('post_update', post_id=post_db.key.id())}}">
+          <a class="btn btn-primary btn-sm" href="{{url_for('post_update', post_id=post_db.key.id())}}">
             <span class="fa fa-fw fa-pencil"></span> Edit
           </a>
         # endif
-      </div>
-      <div class="pull-right text-center text-success">
-        <span class="fa fa-fw fa-clock-o"></span>
-        <time datetime="{{post_db.created}}">
-          {{post_db.created.strftime('%Y-%m-%d')}}
-        </time>
       </div>
       <h1 class="text-center">
         <small>{{post_db.language_key.get().name}}</small><br>
