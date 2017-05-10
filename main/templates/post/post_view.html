@@ -8,31 +8,29 @@
     <div class="progress-bar progress-bar-danger" style="width: {{100 * post_db.votes_a_percentage}}%"></div>
     <div class="progress-bar progress-bar-info" style="width: {{100 * post_db.votes_b_percentage}}%"></div>
   </div>
-  <div class="page-header">
-    <div class="container">
-      <div class="pull-right">
-        <span class="text-success">
-          <span class="fa fa-fw fa-clock-o"></span>
-          <time datetime="{{post_db.created}}">
-            {{post_db.created.strftime('%Y-%m-%d')}}
-          </time>
-        </span>
-        # if post_db.user_key.id() == current_user.id
-          <a class="btn btn-primary btn-sm" href="{{url_for('post_update', post_id=post_db.key.id())}}">
-            <span class="fa fa-fw fa-pencil"></span> Edit
-          </a>
-        # endif
-      </div>
-      <h1 class="text-center">
-        <small>{{post_db.language_key.get().name}}</small><br>
-        {{post_db.title}}
-      </h1>
-      <p class="lead text-center text-muted">
-        # set user_db = post_db.user_key.get()
-        <img class="img-thumbnail" src="{{user_db.avatar_url_size(80)}}" width="40" height="40">
-        by {{user_db.name}}<br>
-      </p>
+  <div class="container">
+    <div class="text-right">
+      <span class="text-success">
+        <span class="fa fa-fw fa-clock-o"></span>
+        <time datetime="{{post_db.created}}">
+          {{post_db.created.strftime('%Y-%m-%d')}}
+        </time>
+      </span>
+      # if post_db.user_key.id() == current_user.id
+        <a class="btn btn-primary btn-xs" href="{{url_for('post_update', post_id=post_db.key.id())}}">
+          <span class="fa fa-fw fa-pencil"></span> Edit Fight
+        </a>
+      # endif
     </div>
+    <h1 class="text-center">
+      <small>{{post_db.language_key.get().name}}</small><br>
+      {{post_db.title}}
+    </h1>
+    <p class="lead text-center text-muted">
+      # set user_db = post_db.user_key.get()
+      <img class="img-thumbnail" src="{{user_db.avatar_url_size(80)}}" width="40" height="40">
+      by {{user_db.name}}<br>
+    </p>
   </div>
 
   <div class="code-split">
