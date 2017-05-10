@@ -73,9 +73,7 @@
       # for comment_db in post_db.get_comment_dbs(limit=-1, order='created')[0]
         <div class="comment">
           <div class="content">
-            # for line in comment_db.content.split('\n')
-              <p>{{line}}</p>
-            # endfor
+            {{utils.render_md(comment_db.content)}}
           </div>
           <div class="meta">
             <time datetime="{{comment_db.created}}">
