@@ -36,7 +36,7 @@ else:
   RECAPTCHA_LIMIT = 8
   TRUSTED_HOSTS = CONFIG_DB.trusted_hosts
 
-TAGLINE = 'Debating on code has never been easier!'
+TAGLINE = 'Fighting for clean code has never been easier!'
 
 DEFAULT_DB_LIMIT = 64
 SIGNIN_RETRY_LIMIT = 4
