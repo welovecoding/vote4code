@@ -1,7 +1,6 @@
 # vote4code
 
-The vote4code website is place to upload two different versions of programming solutions to let the community vote for the best one. It's based on [**gae-init**](https://gae-init.appspot.com/), the easiest boilerplate to kick start new applications on Google
-App Engine using Python, Flask, RESTful, Bootstrap and tons of other [cool features](http://docs.gae-init.appspot.com/features/) out-of-the-box.
+The vote4code website is place to upload two different versions of programming solutions to let the community vote for the best one. It's based on [**gae-init**](https://github.com/gae-init/gae-init).
 
 ## Requirements
 
