@@ -39,7 +39,7 @@ gulp deploy --project=vote4code --version=bar
 gulp deploy --project=vote4code --version=bar --no-promote
 ```
 
-### More
+### Help
 
 For more options execute:
 
