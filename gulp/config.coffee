@@ -12,6 +12,7 @@ config =
     "#{paths.static.ext}/bootstrap/js/collapse.js"
     "#{paths.static.ext}/bootstrap/js/dropdown.js"
     "#{paths.static.ext}/bootstrap/js/tooltip.js"
+    "#{paths.static.ext}/highlightjs-line-numbers.js/src/highlightjs-line-numbers.js"
   ]
   style: [
     "#{paths.src.style}/style.less"
