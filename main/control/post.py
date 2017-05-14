@@ -38,7 +38,7 @@ class PostUpdateForm(flask_wtf.FlaskForm):
   )
 
 
-@app.route('/post/create/', methods=['GET', 'POST'])
+@app.route('/fight/', methods=['GET', 'POST'])
 @app.route('/post/<int:post_id>/update/', methods=['GET', 'POST'])
 @auth.login_required
 def post_update(post_id=0):
