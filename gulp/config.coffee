@@ -19,6 +19,7 @@ config =
   script: [
     "#{paths.src.script}/**/*.coffee"
     "#{paths.src.script}/**/*.js"
+    "#{paths.static.ext}/highlightjs-line-numbers.js/src/highlightjs-line-numbers.js"
   ]
 
 

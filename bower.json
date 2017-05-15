@@ -4,18 +4,33 @@
     "bootstrap": "3.3.7",
     "bootswatch": "3.3.7",
     "font-awesome": "4.7.0",
+    "highlightjs-line-numbers.js": "1.1.0",
     "jquery": "3.2.1",
     "moment": "2.18.1"
   },
   "overrides": {
     "bootstrap": {
-      "main": ["less/**", "fonts/*", "js/*"]
+      "main": [
+        "less/**",
+        "fonts/*",
+        "js/*"
+      ]
     },
     "bootswatch": {
-      "main": ["**/*.less"]
+      "main": [
+        "**/*.less"
+      ]
     },
     "font-awesome": {
-      "main": ["less/*", "fonts/*"]
+      "main": [
+        "less/*",
+        "fonts/*"
+      ]
+    },
+    "highlightjs-line-numbers.js": {
+      "main": [
+        "src/highlightjs-line-numbers.js"
+      ]
     }
   }
 }
