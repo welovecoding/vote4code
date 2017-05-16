@@ -35,14 +35,15 @@
 
   <div class="code-split">
     <div class="row">
+      <div class="anchor" id="red"></div>
       <div class="col-md-6">
-        <form class="text-center" action="{{url_for('post_vote', post_id=post_db.key.id(), variant='a')}}">
+        <form class="text-center" action="{{url_for('post_vote', post_id=post_db.key.id(), variant='a')}}#red">
           <button class="btn {{'btn-success' if (vote_db and vote_db.variant == 'a') else 'btn-default'}}">
             <span class="fa fa-fw fa-arrow-up"></span>
             {{votes_a}}
           </button>
         </form>
-        <pre class="variant-a"><code class="{{post_db.language_key.get().slug}}">{{post_db.variant_a}}</code></pre>
+        <pre class="variant variant-a"><code class="{{post_db.language_key.get().slug}}">{{post_db.variant_a}}</code></pre>
         <div class="post-votes">
           # for v_db in vote_dbs if v_db.variant == 'a'
             # set user_db = v_db.user_key.get()
@@ -51,14 +52,15 @@
         </div>
       </div>
       <hr class="visible-xs visible-sm">
+      <div class="anchor" id="blue"></div>
       <div class="col-md-6">
-        <form class="text-center" action="{{url_for('post_vote', post_id=post_db.key.id(), variant='b')}}">
+        <form class="text-center" action="{{url_for('post_vote', post_id=post_db.key.id(), variant='b')}}#blue">
           <button class="btn {{'btn-success' if vote_db and vote_db.variant == 'b' else 'btn-default'}}">
             <span class="fa fa-fw fa-arrow-up"></span>
             {{votes_b}}
           </button>
         </form>
-        <pre class="variant-b"><code class="{{post_db.language_key.get().slug}}">{{post_db.variant_b}}</code></pre>
+        <pre class="variant variant-b"><code class="{{post_db.language_key.get().slug}}">{{post_db.variant_b}}</code></pre>
         <div class="post-votes">
           # for v_db in vote_dbs if v_db.variant == 'b'
             # set user_db = v_db.user_key.get()
