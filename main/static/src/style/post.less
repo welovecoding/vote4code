@@ -11,9 +11,6 @@
   .code-split {
     padding: 0 @grid-gutter-width / 2;
     margin-bottom: 32px;
-    .post-votes {
-      text-align: center;
-    }
   }
 
   pre {
@@ -28,10 +25,39 @@
 
   .variant-a {
     border: 4px solid @brand-danger;
+    &::before {
+      content: 'Red Corner';
+      left: 8px;
+      color: @brand-danger;
+      border-color: @brand-danger;
+    }
   }
-
   .variant-b {
     border: 4px solid @brand-info;
+    &::before {
+      content: 'Blue Corner';
+      right: 8px;
+      color: @brand-info;
+      border-color: @brand-info;
+      border-bottom: none;
+    }
+  }
+
+  .variant {
+    position: relative;
+    overflow: visible;
+    &::before {
+      position: absolute;
+      top: -28px;
+      font-size: 16px;
+      font-weight: 600;
+      background-color: @hr-border;
+      border-radius: 4px 4px 0 0;
+      border-width: 4px;
+      border-style: solid;
+      border-bottom: none;
+      padding: 2px 8px 0;
+    }
   }
 
   .post-progress {

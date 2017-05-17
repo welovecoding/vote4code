@@ -1,10 +1,14 @@
 .welcome {
   .jumbotron {
     background-image: url(/p/img/fight.png);
-    background-position: 50%;
+    background-position: top center;
     background-size: contain;
     background-repeat: no-repeat;
     margin-bottom: 0;
+
+    @media (min-width: @screen-md-min) {
+      background-position: 50%;
+    }
   }
 
   h2 {
@@ -32,6 +36,7 @@
       }
 
     }
+
     .post-votes {
       display: flex;
       flex: 1;
