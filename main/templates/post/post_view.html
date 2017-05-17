@@ -61,8 +61,8 @@
           </button>
         </form>
         <pre class="variant variant-b"><code class="{{post_db.language_key.get().slug}}">{{post_db.variant_b}}</code></pre>
-        <div class="post-votes">
-          # for v_db in vote_dbs if v_db.variant == 'b'
+        <div class="post-votes text-right">
+          # for v_db in vote_dbs | reverse if v_db.variant == 'b'
             # set user_db = v_db.user_key.get()
             <img class="img-thumbnail" src="{{user_db.avatar_url_size(80)}}" width="40" height="40" title="{{user_db.name}}">
           # endfor
