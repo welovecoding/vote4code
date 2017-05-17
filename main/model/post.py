@@ -12,8 +12,8 @@ import util
 class Post(model.Base):
   title = ndb.StringProperty(required=True)
   language_key = ndb.KeyProperty(kind=model.Language, required=True, verbose_name=u'Language')
-  variant_a = ndb.TextProperty(required=True)
-  variant_b = ndb.TextProperty(required=True)
+  variant_a = ndb.TextProperty(required=True, verbose_name='Red Corner')
+  variant_b = ndb.TextProperty(required=True, verbose_name='Blue Corner')
   user_key = ndb.KeyProperty(kind=model.User, required=True)
   votes_a = ndb.IntegerProperty(default=0)
   votes_b = ndb.IntegerProperty(default=0)
