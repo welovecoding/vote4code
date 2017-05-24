@@ -39,7 +39,7 @@ class PostUpdateForm(flask_wtf.FlaskForm):
 
 
 @app.route('/fight/', methods=['GET', 'POST'])
-@app.route('/post/<int:post_id>/update/', methods=['GET', 'POST'])
+@app.route('/fight/<int:post_id>/update/', methods=['GET', 'POST'])
 @auth.login_required
 def post_update(post_id=0):
   if post_id:
@@ -140,6 +140,7 @@ def post_view(post_id, slug=None):
     votes_a=votes_a,
     votes_b=votes_b,
     post_db=post_db,
+    og_image=post_db.user_key.get().avatar_url_size(512),
     form=form,
     api_url=flask.url_for('api.post', post_key=post_db.key.urlsafe() if post_db.key else ''),
   )
