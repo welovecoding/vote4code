@@ -44,19 +44,19 @@ class User(model.Base):
   def avatar_url_size(self, size=None):
     github_id = self.has_github()
     if github_id:
-      return '//avatars.githubusercontent.com/u/%(id)s%(size)s' % {
+      return 'https://avatars.githubusercontent.com/u/%(id)s%(size)s' % {
         'id': github_id.split('_')[1],
         'size': '?size=%s' % (size) if size else '',
       }
 
     facebook_id = self.has_facebook()
     if facebook_id:
-      return '//graph.facebook.com/%(id)s/picture%(size)s' % {
+      return 'https://graph.facebook.com/%(id)s/picture%(size)s' % {
         'id': facebook_id.split('_')[1],
         'size': '?width=%s&height=%s' % (size, size) if size else '',
       }
 
-    return '//gravatar.com/avatar/%(hash)s?d=identicon&r=x%(size)s' % {
+    return 'https://gravatar.com/avatar/%(hash)s?d=identicon&r=x%(size)s' % {
       'hash': hashlib.md5(
         (self.email or self.username).encode('utf-8')).hexdigest(),
       'size': '&s=%d' % size if size > 0 else '',
