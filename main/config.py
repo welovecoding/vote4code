@@ -41,3 +41,5 @@ TAGLINE = 'Fighting for clean code has never been easier!'
 DEFAULT_DB_LIMIT = 64
 SIGNIN_RETRY_LIMIT = 4
 TAG_SEPARATOR = ' '
+
+OG_IMAGE = '/p/img/fight-640.png'
